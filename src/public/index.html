@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment API</title>
+</head>
+
+<body>
+  <div style="display: flex; justify-content: center; align-items: center;">
+    <button id="paypal" style="margin: 20px;">PayPal!</button>
+    <button id="stripe" style="margin: 20px;">Stripe!</button>
+    <button id="mercado-pago" style="margin: 20px;">Mercado Pago!</button>
+  </div>
+
+  <script>
+    const paypal = document.getElementById( "paypal" )
+    paypal.addEventListener( "click", async () => {
+      const response = await fetch( "/paypal/create-order", {
+        method: "POST",
+      } )
+      const data = await response.json()
+      window.location.href = data.links[ 1 ].href
+    } )
+
+
+    const stripe = document.getElementById( "stripe" )
+    stripe.addEventListener( "click", async () => {
+      const response = await fetch( "/stripe/create-order", {
+        method: "POST",
+      } )
+      const data = await response.json()
+      window.location.href = data.links[ 1 ].href
+    } )
+
+
+    const mercadopago = document.getElementById( "mercado-pago" )
+    mercadopago.addEventListener( "click", async () => {
+      const response = await fetch( "/mercado-pago/create-order", {
+        method: "POST",
+      } )
+      const data = await response.json()
+      window.location.href = data.links[ 1 ].href
+    } );
+  </script>
+</body>
+
+</html>
